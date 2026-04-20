@@ -1,7 +1,6 @@
 object rolando {
     var capacidadMochila = 2 
     const artefactosEnMochila = #{}
-    var estaEnVivienda = true
 
     method encontrarArtefacto(_artefacto){
         if (self.verificarMochila()){
@@ -17,21 +16,16 @@ object rolando {
     method artefactosEnMochila(){
         return artefactosEnMochila
     }
-    method estaEnVivienda(_estaEnVivienda){
-        estaEnVivienda = _estaEnVivienda
-    }
     method dejarObjetosEnVivienda(vivienda){
-        if (estaEnVivienda) {
-            vivienda.dejarObjetosEn(artefactosEnMochila)
-            artefactosEnMochila.clear()
-        }
+        vivienda.dejarObjetosEn(artefactosEnMochila)
+        artefactosEnMochila.clear()
     }
     method posesiones() {
         return artefactosEnMochila + castillo.artefactosEnCastillo()
     }
-    // method artefactoParticular(){
-    //         self.posesiones().find(artefactosEnMochila->)
-    // }
+     method artefactoParticular(artefacto){
+           return self.posesiones().contains(artefacto)
+     }
 }
 
 
