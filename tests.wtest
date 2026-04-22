@@ -1,0 +1,12 @@
+import capos.*
+
+describe "rolando" {
+    test "poder de Pelea" {
+        rolando.poder(5)
+        rolando.capacidadMochila(3)
+        rolando.encontrarArtefacto(espadaDelDestino)
+        rolando.encontrarArtefacto(armaduraDeAceroValyrio)
+        rolando.encontrarArtefacto(collarDivino)
+        assert.equals(19, rolando.poderTotal())    
+    }
+}
