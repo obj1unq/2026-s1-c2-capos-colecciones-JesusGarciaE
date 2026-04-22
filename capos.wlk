@@ -1,11 +1,14 @@
 object rolando {
     var capacidadMochila = 2 
     const artefactosEnMochila = #{}
+    const artefactosVistos = []
+    var poder = 5
 
     method encontrarArtefacto(_artefacto){
         if (self.verificarMochila()){
             artefactosEnMochila.add(_artefacto)
         }
+    artefactosVistos.add(_artefacto)    
     }
     method verificarMochila(){
         return artefactosEnMochila.size() < capacidadMochila
@@ -16,6 +19,11 @@ object rolando {
     method artefactosEnMochila(){
         return artefactosEnMochila
     }
+    
+    method artefactosVistos() {
+        return artefactosVistos
+    }
+    
     method dejarObjetosEnVivienda(vivienda){
         vivienda.dejarObjetosEn(artefactosEnMochila)
         artefactosEnMochila.clear()
@@ -25,11 +33,21 @@ object rolando {
     }
      method artefactoParticular(artefacto){
            return self.posesiones().contains(artefacto)
-     }
+    }
+    method poderRolando(){
+        return poder + poder.artefacto
+    }
 }
 
 
 object espadaDelDestino {
+    var esPrimerUso = true
+    method poder(){
+        if(esPrimerUso){
+            return rolando.poder * 2
+        }
+        return rolando.poder * 1.5
+    }
 }
 
 object libroDeHechizos {
