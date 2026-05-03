@@ -62,11 +62,11 @@ object rolando {
         return self.poderTotal() > _enemigo.poder()
     }
 
-    method poderoso(){
-        return self.puedeVencerA(caterina) && self.puedeVencerA(archibaldo) && self.puedeVencerA(astra)
+    method poderoso(tierra){
+        return tierra.puedeVencerATodos(self)
     }
     method tieneArtefactoFatal(){
-        return self.posesiones().find({artefacto => artefacto.poder(self) > 28})
+        return self.posesiones().find({artefacto => artefacto.poder(self) > enemigo.poder()})
     }
     method obtenerArtefactoMasPoderoso(){
         return self.posesiones().max({artefacto => artefacto.poder(self)})
@@ -75,7 +75,12 @@ object rolando {
         return if (self.puedeVencerA(villano)){
             villano.morada()
         }
-    
+    }
+}
+object tierra {
+    const villanos = [caterina, archibaldo, astra]
+    method puedeVencerATodos(persona){
+        return villanos.all({villano => persona.puedeVencerA(villano)})
     }
 }
 
@@ -125,17 +130,16 @@ object libroDeHechizos {
     const hechizosDisponibles = [bendición, invisibilidad,invocacion]
 
      method poder(persona){
-         if(self.puedoUtilizarHechizo(bendición)){
-            return  4    
-         }
-         else if (self.puedoUtilizarHechizo(invisibilidad)) {
-             return persona.poder() 
-         }
-         else if (self.puedoUtilizarHechizo(invocacion)){
-              castillo.masPoderoso()
-         }
-            return 0
+        
+        return if (self.hechizosDisponibles().isEmpty()){
+            0
+        }
+        else {
+            self.hechizosDisponibles().first().poder(persona)
+        }
+        
     }
+    
 
     method puedoUtilizarHechizo(hechizo){
         return hechizosDisponibles.contains(hechizo)
@@ -152,14 +156,26 @@ object libroDeHechizos {
             hechizosDisponibles.remove(invocacion)
         }
     }
+    method hechizosDisponibles(){
+        return hechizosDisponibles
+    }
 }
 object bendición{
+    method poder(persona){
+        return 4
+    }
 }
 
 object invisibilidad {
+    method poder(persona){
+        return persona.poder()
+    }
 }
 
 object invocacion {
+    method poder(persona){
+        return castillo.masPoderoso()
+    }
 }
 
 object collarDivino {
