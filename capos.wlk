@@ -145,17 +145,6 @@ object libroDeHechizos {
         return hechizosDisponibles.contains(hechizo)
     }
    
-    method fueUtilizado(){
-        if (self.puedoUtilizarHechizo(bendición)){
-            hechizosDisponibles.remove(bendición)
-        }
-        else if (self.puedoUtilizarHechizo(invisibilidad)) {
-            hechizosDisponibles.remove(invisibilidad)
-        }
-        else if (self.puedoUtilizarHechizo(invocacion)){
-            hechizosDisponibles.remove(invocacion)
-        }
-    }
     method hechizosDisponibles(){
         return hechizosDisponibles
     }
@@ -164,17 +153,26 @@ object bendición{
     method poder(persona){
         return 4
     }
+    method fueUtilizado(){
+        libroDeHechizos.hechizosDisponibles().remove(self)
+    }
 }
 
 object invisibilidad {
     method poder(persona){
         return persona.poder()
     }
+    method fueUtilizado(){        
+        libroDeHechizos.hechizosDisponibles().remove(self)
+    }
 }
 
 object invocacion {
     method poder(persona){
         return castillo.masPoderoso()
+    }
+    method fueUtilizado(){
+        libroDeHechizos.hechizosDisponibles().remove(self)
     }
 }
 
